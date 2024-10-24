@@ -8,9 +8,11 @@ import MovieList from "@/components/block/movie-list";
 import { useInView } from "react-intersection-observer";
 import { API_KEY } from "@/constant";
 import { Input } from "../ui/input";
+import useDebounce from "@/hooks/useDebounce";
 
 const Movies = () => {
   const [search, setSearch] = useState("");
+  const deboucedSearch = useDebounce(search);
 
   const {
     data,
@@ -24,7 +26,7 @@ const Movies = () => {
     queryFn: async ({ pageParam }) => {
       if (search) {
         const response = await fetch(
-          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${search}&page=${pageParam}&query=${search}`
+          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&page=${pageParam}&query=${deboucedSearch}`
         );
         return await response.json();
       } else {
@@ -43,7 +45,7 @@ const Movies = () => {
 
   // combine results from all pages
   const movies = data?.pages.flatMap((page) => page.results) || [];
- 
+
   // use inView to fetch next page
   const { ref, inView } = useInView();
   useEffect(() => {
@@ -63,19 +65,32 @@ const Movies = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <MovieList
-        movies={movies}
-        isLoading={isLoading}
-        isFetching={isFetching}
-        isError={isError}
-      />
-      <div ref={ref} className="py-16">
-        {isFetchingNextPage && (
-          <div className="w-fit mx-auto py-4">
-            <Loader size={16} className="animate-spin" />
+      {/* movie list */}
+      {movies && movies?.length > 0 ? (
+        <>
+          <MovieList
+            movies={movies}
+            isLoading={isLoading}
+            isFetching={isFetching}
+            isError={isError}
+          />
+          <div ref={ref} className="py-16">
+            {isFetchingNextPage && (
+              <div className="w-fit mx-auto py-4">
+                <Loader size={16} className="animate-spin" />
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </>
+      ) : (
+        <>
+          {(!isLoading || !isFetching) && (
+            <div className="w-fit mx-auto py-6 text-xl font-medium tracking-tighter">
+              Data Not Found!
+            </div>
+          )}
+        </>
+      )}
     </Container>
   );
 };
