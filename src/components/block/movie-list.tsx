@@ -13,12 +13,12 @@ type MovieListProps = {
 const MovieList = ({
   movies,
   isLoading,
-  isFetching,
+  // isFetching,
   isError,
 }: MovieListProps) => {
   return (
     <>
-      {(isLoading || isFetching) && (
+      {isLoading  && (
         <div className="w-fit mx-auto py-4">
           <Loader size={16} className="animate-spin" />
         </div>

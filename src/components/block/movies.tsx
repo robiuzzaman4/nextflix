@@ -1,14 +1,17 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Container from "@/components/block/container";
+import React, { useEffect, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { Loader } from "lucide-react";
+import Container from "@/components/block/container";
 import MovieList from "@/components/block/movie-list";
 import { useInView } from "react-intersection-observer";
-import { Loader } from "lucide-react";
 import { API_KEY } from "@/constant";
+import { Input } from "../ui/input";
 
 const Movies = () => {
+  const [search, setSearch] = useState("");
+
   const {
     data,
     isLoading,
@@ -17,12 +20,19 @@ const Movies = () => {
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["movies"],
+    queryKey: ["movies", search],
     queryFn: async ({ pageParam }) => {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${pageParam}`
-      );
-      return await response.json();
+      if (search) {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${search}&page=${pageParam}&query=${search}`
+        );
+        return await response.json();
+      } else {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${pageParam}`
+        );
+        return await response.json();
+      }
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages) => {
@@ -33,7 +43,7 @@ const Movies = () => {
 
   // combine results from all pages
   const movies = data?.pages.flatMap((page) => page.results) || [];
-
+ 
   // use inView to fetch next page
   const { ref, inView } = useInView();
   useEffect(() => {
@@ -44,6 +54,15 @@ const Movies = () => {
 
   return (
     <Container>
+      {/* searchbar */}
+      <div className="w-full flex items-center justify-end pb-6">
+        <Input
+          type="text"
+          placeholder="The wild robot"
+          className="max-w-sm w-full ms-auto"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
       <MovieList
         movies={movies}
         isLoading={isLoading}
