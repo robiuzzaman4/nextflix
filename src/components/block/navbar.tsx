@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Container from "@/components/block/container";
 import { Button } from "@/components/ui/button";
+import ThemeToggle from "../theme-toggle";
 
 const Navbar = () => {
   return (
@@ -13,9 +14,12 @@ const Navbar = () => {
         >
           Nextflix
         </Link>
-        <Button asChild size="sm">
-          <Link href="/watchlist">Watchlist</Link>
-        </Button>
+        <div className="flex items-center gap-6">
+          <Button asChild size="sm">
+            <Link href="/watchlist">Watchlist</Link>
+          </Button>
+          <ThemeToggle/>
+        </div>
       </Container>
     </nav>
   );
