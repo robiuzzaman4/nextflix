@@ -1,7 +1,7 @@
 import React from "react";
-import Container from "@/components/block/container";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import Container from "@/components/block/container";
+import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   return (
