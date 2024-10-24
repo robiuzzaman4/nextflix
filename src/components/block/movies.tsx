@@ -2,13 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { Loader } from "lucide-react";
+import { useInView } from "react-intersection-observer";
+import { Loader, Search } from "lucide-react";
 import Container from "@/components/block/container";
 import MovieList from "@/components/block/movie-list";
-import { useInView } from "react-intersection-observer";
 import { API_KEY } from "@/constant";
-import { Input } from "../ui/input";
-import useDebounce from "@/hooks/useDebounce";
+import { Input } from "@/components/ui/input";
+import { useDebounce } from "@/hooks/useDebounce";
 
 const Movies = () => {
   const [search, setSearch] = useState("");
@@ -22,9 +22,9 @@ const Movies = () => {
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["movies", search],
+    queryKey: ["movies", search.length >= 3],
     queryFn: async ({ pageParam }) => {
-      if (search) {
+      if (search?.length >= 3) {
         const response = await fetch(
           `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&page=${pageParam}&query=${deboucedSearch}`
         );
@@ -58,12 +58,15 @@ const Movies = () => {
     <Container>
       {/* searchbar */}
       <div className="w-full flex items-center justify-end pb-6">
-        <Input
-          type="text"
-          placeholder="The wild robot"
-          className="max-w-sm w-full ms-auto"
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <label className="relative w-full max-w-sm">
+          <Input
+            type="text"
+            placeholder="Type something (minimum 3 character)"
+            className="w-full ms-auto text-xs md:text-sm pl-8"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <Search size={14} className="absolute top-2.5 left-2" />
+        </label>
       </div>
       {/* movie list */}
       {movies && movies?.length > 0 ? (
