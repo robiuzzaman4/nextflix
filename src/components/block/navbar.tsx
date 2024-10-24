@@ -14,7 +14,7 @@ const Navbar = () => {
         >
           Nextflix
         </Link>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-2">
           <Button asChild size="sm">
             <Link href="/watchlist">Watchlist</Link>
           </Button>

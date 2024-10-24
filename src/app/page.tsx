@@ -1,10 +1,12 @@
 import React from "react";
 import Hero from "@/components/block/hero";
+import Movies from "@/components/block/movies";
 
-const HomePage = () => {
+const HomePage = () => {  
   return (
     <section>
       <Hero />
+      <Movies />
     </section>
   );
 };
