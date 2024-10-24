@@ -3,6 +3,7 @@ import Image from "next/image";
 import { TMDB_MEDIA_URL } from "@/constant";
 import { Movie } from "@/types";
 import { Badge } from "@/components/ui/badge";
+import MovieCasts from "./movie-casts";
 
 type MovieDetailsProps = {
   movie: Movie;
@@ -52,6 +53,10 @@ const MovieDetails = ({ movie }: MovieDetailsProps) => {
           Released on{" "}
           <span className="text-foreground">{movie?.release_date}.</span>
         </p>
+        <span className="text-base space-y-6">
+          <p>Casts:</p>
+          <MovieCasts movieId={movie?.id} />
+        </span>
       </div>
     </div>
   );
