@@ -16,7 +16,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
         height={720}
         width={1080}
         className="aspect-[3/4] rounded-md"
-        priority
+        loading="lazy"
       />
       <h1 className="text-base truncate">{movie?.title}</h1>
     </div>
