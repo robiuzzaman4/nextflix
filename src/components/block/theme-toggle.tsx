@@ -19,7 +19,6 @@ const ThemeToggle = () => {
           className="size-8"
         >
           <MoonIcon className="" />
-          <span className="sr-only">Toggle theme</span>
         </Button>
       ) : (
         <Button
@@ -29,7 +28,6 @@ const ThemeToggle = () => {
           className="size-8"
         >
           <SunIcon className="" />
-          <span className="sr-only">Toggle theme</span>
         </Button>
       )}
     </>

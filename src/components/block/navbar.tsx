@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Container from "@/components/block/container";
 import { Button } from "@/components/ui/button";
-import ThemeToggle from "../theme-toggle";
+import ThemeToggle from "@/components/block/theme-toggle";
 
 const Navbar = () => {
   return (
@@ -18,7 +18,7 @@ const Navbar = () => {
           <Button asChild size="sm">
             <Link href="/watchlist">Watchlist</Link>
           </Button>
-          <ThemeToggle/>
+          <ThemeToggle />
         </div>
       </Container>
     </nav>
