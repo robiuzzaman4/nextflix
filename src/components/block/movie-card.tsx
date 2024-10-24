@@ -9,7 +9,7 @@ type MovieCardProps = {
 
 const MovieCard = ({ movie }: MovieCardProps) => {
   return (
-    <div className="grid gap-4 p-1 bg-background border rounded-lg shadow">
+    <div className="grid gap-4 p-1 bg-background dark:bg-secondary/40 border rounded-lg shadow">
       <Image
         src={`${TMDB_MEDIA_URL}${movie?.poster_path}`}
         alt={movie.title}
