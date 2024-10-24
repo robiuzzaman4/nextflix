@@ -9,7 +9,7 @@ const Navbar = () => {
       <Container className="flex items-center justify-between gap-6">
         <Link
           href="/"
-          className="text-xl font-medium tracking-tighter text-rose-600"
+          className="text-xl font-semibold tracking-tighter text-rose-500"
         >
           Nextflix
         </Link>
