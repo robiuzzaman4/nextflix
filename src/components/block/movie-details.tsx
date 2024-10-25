@@ -8,7 +8,7 @@ import MovieCasts from "@/components/block/movie-casts";
 import MovieRecommendations from "@/components/block/movie-recommendations";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import AddToWatchList from "./add-to-watchlist";
+import ToggleWatchList from "@/components/block/toggle-watchlist";
 
 type MovieDetailsProps = {
   movie: Movie;
@@ -25,8 +25,8 @@ const MovieDetails = ({ movie, recommendations }: MovieDetailsProps) => {
             Back to Home
           </Link>
         </Button>
-        {/* add to watchlist */}
-        <AddToWatchList />
+        {/* toggle watchlist */}
+        <ToggleWatchList movieId={movie?.id} />
       </div>
       <div className="grid sm:grid-cols-3 gap-6">
         <div className="">
