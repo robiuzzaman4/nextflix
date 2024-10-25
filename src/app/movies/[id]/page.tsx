@@ -12,7 +12,7 @@ const MovieDetailsPage = async ({ params }: { params: { id: number } }) => {
     `https://api.themoviedb.org/3/movie/${params.id}?api_key=${API_KEY}`,
     {
       next: {
-        revalidate: 60,
+        revalidate: 60, // revalidate after every 60 seconds
       },
     }
   );
@@ -27,7 +27,6 @@ const MovieDetailsPage = async ({ params }: { params: { id: number } }) => {
     );
   }
 
-  console.log("movie", movie);
 
   return (
     <section className="pb-16 pt-8">
