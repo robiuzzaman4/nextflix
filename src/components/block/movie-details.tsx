@@ -3,8 +3,8 @@ import Image from "next/image";
 import { API_KEY, TMDB_MEDIA_URL } from "@/constant";
 import { Movie } from "@/types";
 import { Badge } from "@/components/ui/badge";
-import MovieCasts from "./movie-casts";
-import MovieRecommendations from "./movie-recommendations";
+import MovieCasts from "@/components/block/movie-casts";
+import MovieRecommendations from "@/components/block/movie-recommendations";
 
 type MovieDetailsProps = {
   movie: Movie;
@@ -74,7 +74,7 @@ const MovieDetails = async ({ movie }: MovieDetailsProps) => {
         </div>
       </div>
       {/* recommendations */}
-      <MovieRecommendations recommendations={recommendations}/>
+      <MovieRecommendations recommendations={recommendations} />
     </div>
   );
 };

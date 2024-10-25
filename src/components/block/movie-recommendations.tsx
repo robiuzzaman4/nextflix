@@ -1,5 +1,5 @@
-import { Movie } from "@/types";
 import React from "react";
+import { Movie } from "@/types";
 import {
   Carousel,
   CarouselContent,
