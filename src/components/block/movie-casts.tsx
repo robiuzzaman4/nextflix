@@ -26,29 +26,37 @@ const MovieCasts = ({ movieId }: MovieCastsProps) => {
   const casts: MovieCast[] = data?.cast;
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {casts?.slice(0, limit)?.map((cast: MovieCast, index: number) => (
-        <div
-          key={index}
-          className="flex gap-4 items-center py-1 px-2 rounded-lg shadow border bg-background dark:bg-secondary/50"
-        >
-          <Avatar>
-            <AvatarImage
-              src={`${TMDB_MEDIA_URL}${cast?.profile_path}`}
-              className="object-cover"
-            />
-            <AvatarFallback className="text-sm">N/A</AvatarFallback>
-          </Avatar>
-          <p className="text-sm truncate">{cast?.name ? cast?.name : "N/A"}</p>
-        </div>
-      ))}
+    <>
+      {casts && casts?.length > 0 ? (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {casts?.slice(0, limit)?.map((cast: MovieCast, index: number) => (
+            <div
+              key={index}
+              className="flex gap-4 items-center py-1 px-2 rounded-lg shadow border bg-background dark:bg-secondary/50"
+            >
+              <Avatar>
+                <AvatarImage
+                  src={`${TMDB_MEDIA_URL}${cast?.profile_path}`}
+                  className="object-cover"
+                />
+                <AvatarFallback className="text-sm">N/A</AvatarFallback>
+              </Avatar>
+              <p className="text-sm truncate">
+                {cast?.name ? cast?.name : "N/A"}
+              </p>
+            </div>
+          ))}
 
-      {limit < casts?.length && (
-        <Button onClick={() => setLimit(casts?.length)} className="h-full">
-          Show All
-        </Button>
+          {limit < casts?.length && (
+            <Button onClick={() => setLimit(casts?.length)} className="h-full">
+              Show All
+            </Button>
+          )}
+        </div>
+      ) : (
+        <p>No Casts Available!</p>
       )}
-    </div>
+    </>
   );
 };
 

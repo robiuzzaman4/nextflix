@@ -49,23 +49,28 @@ const MovieDetails = async ({ movie, recommendations }: MovieDetailsProps) => {
         </div>
         <div className="sm:col-span-2 flex flex-col gap-4">
           <h3 className="text-xl md:text-2xl lg:text-3xl font-medium tracking-tighter">
-            {movie?.title}
+            {movie?.title ? movie?.title : "Not Title Available!"}
           </h3>
           <p className="text-base text-muted-foreground">
-            <span className="text-foreground">Overview:</span> {movie?.overview}
+            <span className="text-foreground">Overview:</span>{" "}
+            {movie?.overview ? movie?.overview : "No Overview Available!"}
           </p>
           <div className="text-base flex items-center gap-1">
             Genres:{" "}
             <span className="flex items-center gap-2">
-              {movie?.genres?.map((item, index) => (
-                <Badge
-                  variant="outline"
-                  key={index}
-                  className="dark:bg-secondary"
-                >
-                  {item?.name}
-                </Badge>
-              ))}
+              {movie && movie?.genres?.length > 0 ? (
+                movie?.genres?.map((item, index) => (
+                  <Badge
+                    variant="outline"
+                    key={index}
+                    className="dark:bg-secondary"
+                  >
+                    {item?.name}
+                  </Badge>
+                ))
+              ) : (
+                <p>No Genres Available!</p>
+              )}
             </span>
           </div>
           <p className="text-base text-muted-foreground">
