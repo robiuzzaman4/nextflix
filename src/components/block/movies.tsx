@@ -52,10 +52,7 @@ const Movies = () => {
     if (inView) {
       fetchNextPage();
     }
-  }, [fetchNextPage, inView]);
-
-  console.log("APY_KEY", API_KEY);
-  
+  }, [fetchNextPage, inView]);  
 
   return (
     <Container>
