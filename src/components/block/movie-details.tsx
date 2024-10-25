@@ -1,30 +1,35 @@
 import React from "react";
 import Image from "next/image";
-import { API_KEY, TMDB_MEDIA_URL } from "@/constant";
+import Link from "next/link";
+import { TMDB_MEDIA_URL } from "@/constant";
 import { Movie } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import MovieCasts from "@/components/block/movie-casts";
 import MovieRecommendations from "@/components/block/movie-recommendations";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
+import { BookmarkFilledIcon } from "@radix-ui/react-icons";
+import { cn } from "@/lib/utils";
 
 type MovieDetailsProps = {
   movie: Movie;
+  recommendations: Movie[];
 };
 
-const MovieDetails = async ({ movie }: MovieDetailsProps) => {
-  // fetch the movie recommendations with ISR
-  const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${movie?.id}/recommendations?api_key=${API_KEY}`,
-    {
-      next: {
-        revalidate: 60, // revalidate after every 60 seconds
-      },
-    }
-  );
-  const data = await response.json();
-  const recommendations = data?.results;
-
+const MovieDetails = async ({ movie, recommendations }: MovieDetailsProps) => {
   return (
     <div className="w-full grid gap-6">
+      <div className="mb-2 flex items-center justify-between gap-4 w-full">
+        <Button asChild variant="outline" size="sm">
+          <Link href="/" className="w-fit">
+            <ChevronLeft size={16} className="-ml-1 -mr-1" />
+            Back to Home
+          </Link>
+        </Button>
+        <Button size="icon" variant="outline" className="h-8 w-8">
+          <BookmarkFilledIcon className={cn("size-6 text-muted-foreground")} />
+        </Button>
+      </div>
       <div className="grid sm:grid-cols-3 gap-6">
         <div className="">
           {movie?.poster_path ? (
