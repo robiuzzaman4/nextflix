@@ -27,7 +27,7 @@ const MovieCasts = ({ movieId }: MovieCastsProps) => {
       {casts?.map((cast: MovieCast, index: number) => (
         <div
           key={index}
-          className="flex flex-col gap-2 items-center justify-center p-2 rounded-lg shadow border bg-background dark:bg-secondary/50"
+          className="flex gap-4 items-center py-1 px-2 rounded-lg shadow border bg-background dark:bg-secondary/50"
         >
           <Avatar>
             <AvatarImage
