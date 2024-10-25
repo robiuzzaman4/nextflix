@@ -8,15 +8,14 @@ import MovieCasts from "@/components/block/movie-casts";
 import MovieRecommendations from "@/components/block/movie-recommendations";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import { BookmarkFilledIcon } from "@radix-ui/react-icons";
-import { cn } from "@/lib/utils";
+import AddToWatchList from "./add-to-watchlist";
 
 type MovieDetailsProps = {
   movie: Movie;
   recommendations: Movie[];
 };
 
-const MovieDetails = async ({ movie, recommendations }: MovieDetailsProps) => {
+const MovieDetails = ({ movie, recommendations }: MovieDetailsProps) => {
   return (
     <div className="w-full grid gap-6">
       <div className="mb-2 flex items-center justify-between gap-4 w-full">
@@ -26,9 +25,8 @@ const MovieDetails = async ({ movie, recommendations }: MovieDetailsProps) => {
             Back to Home
           </Link>
         </Button>
-        <Button size="icon" variant="outline" className="h-8 w-8">
-          <BookmarkFilledIcon className={cn("size-6 text-muted-foreground")} />
-        </Button>
+        {/* add to watchlist */}
+        <AddToWatchList />
       </div>
       <div className="grid sm:grid-cols-3 gap-6">
         <div className="">
