@@ -54,6 +54,9 @@ const Movies = () => {
     }
   }, [fetchNextPage, inView]);
 
+  console.log("APY_KEY", API_KEY);
+  
+
   return (
     <Container>
       {/* searchbar */}
