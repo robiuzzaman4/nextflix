@@ -38,3 +38,9 @@ export const getMovieRecommendations = async (movieId: number) => {
     return null;
   }
 };
+
+// === get watchlisted movies from local storage ===
+export const getWatchlistedMovies = () => {
+  const data = localStorage.getItem("watchlist");
+  return data ? JSON.parse(data) : [];
+};
