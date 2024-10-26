@@ -7,11 +7,14 @@ import { cn } from "@/lib/utils";
 import { Movie } from "@/types";
 
 type ToggleWatchListProps = {
-  movieId: number;
   movie: Movie;
+  setWatchlistedMovies?: React.Dispatch<React.SetStateAction<Movie[]>>;
 };
 
-const ToggleWatchList = ({ movieId, movie }: ToggleWatchListProps) => {
+const ToggleWatchList = ({
+  movie,
+  setWatchlistedMovies,
+}: ToggleWatchListProps) => {
   const [isInWatchlist, setIsInWatchlist] = useState(false);
 
   useEffect(() => {
@@ -19,24 +22,30 @@ const ToggleWatchList = ({ movieId, movie }: ToggleWatchListProps) => {
       const watchlist: Movie[] = JSON.parse(
         localStorage.getItem("watchlist") || "[]"
       );
-      setIsInWatchlist(watchlist?.some((m) => m?.id === movieId));
+      setIsInWatchlist(watchlist?.some((m) => m?.id === movie?.id));
     }
-  }, [movieId]);
+  }, [movie?.id]);
 
-  const handleToggleWatchlist = () => {
+  const handleToggleWatchlist = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
     if (typeof window !== "undefined") {
       let watchlist: Movie[] = JSON.parse(
         localStorage.getItem("watchlist") || "[]"
       );
 
-      if (watchlist?.some((m) => m?.id === movieId)) {
-        watchlist = watchlist?.filter((m) => m?.id !== movieId);
+      if (watchlist?.some((m) => m?.id === movie?.id)) {
+        watchlist = watchlist?.filter((m) => m?.id !== movie?.id);
       } else {
         watchlist.push(movie);
       }
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
 
       setIsInWatchlist(!isInWatchlist);
+
+      if (setWatchlistedMovies) {
+        setWatchlistedMovies(watchlist);
+      }
     }
   };
 
