@@ -17,7 +17,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Nextflix",
+  title: "Nextflix - Home",
   description: "Next.js movie application powered by TMDB",
 };
 
@@ -28,6 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="fav icon" href="/favicon.svg" type="image/svg" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
       >
