@@ -26,7 +26,7 @@ const MovieDetails = ({ movie, recommendations }: MovieDetailsProps) => {
           </Link>
         </Button>
         {/* toggle watchlist */}
-        <ToggleWatchList movieId={movie?.id} movie={movie} />
+        <ToggleWatchList movie={movie} />
       </div>
       <div className="grid sm:grid-cols-3 gap-6">
         <div className="">
