@@ -4,31 +4,36 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { BookmarkFilledIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
+import { Movie } from "@/types";
 
 type ToggleWatchListProps = {
   movieId: number;
+  movie: Movie;
 };
 
-const ToggleWatchList = ({ movieId }: ToggleWatchListProps) => {
+const ToggleWatchList = ({ movieId, movie }: ToggleWatchListProps) => {
   const [isInWatchlist, setIsInWatchlist] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]");
-      setIsInWatchlist(watchlist.includes(movieId));
+      const watchlist: Movie[] = JSON.parse(
+        localStorage.getItem("watchlist") || "[]"
+      );
+      setIsInWatchlist(watchlist?.some((m) => m?.id === movieId));
     }
   }, [movieId]);
 
   const handleToggleWatchlist = () => {
     if (typeof window !== "undefined") {
-      let watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]");
+      let watchlist: Movie[] = JSON.parse(
+        localStorage.getItem("watchlist") || "[]"
+      );
 
-      if (watchlist.includes(movieId)) {
-        watchlist = watchlist.filter((id: number) => id !== movieId);
+      if (watchlist?.some((m) => m?.id === movieId)) {
+        watchlist = watchlist?.filter((m) => m?.id !== movieId);
       } else {
-        watchlist.push(movieId);
+        watchlist.push(movie);
       }
-
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
 
       setIsInWatchlist(!isInWatchlist);
